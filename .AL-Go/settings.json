@@ -2,6 +2,7 @@
     "type":  "PTE",
     "country": "us",
     "enablePerTenantExtensionCop":  false,
+    "repoVersion": "2.0",
     "appFolders":  [
                        "HideStuff"
                    ],
