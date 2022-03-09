@@ -183,7 +183,7 @@ jobs:
                   else {
                       $storageContext = New-AzureStorageContext -StorageAccountName $storageAccount.StorageAccountName -StorageAccountKey $storageAccount.StorageAccountKey
                   }
-                  $storageContainerName =  $storageAccount.ContainerName.ToLowerInvariant().replace('{project}',$projectName).ToLowerInvariant()
+                  $storageContainerName = $storageAccount.ContainerName.ToLowerInvariant().replace('{project}',$projectName).ToLowerInvariant()
                   Get-AzureStorageContainer -Context $storageContext -name $storageContainerName | Out-Null
                   $storageBlobName = $storageAccount.BlobName.ToLowerInvariant()
                   Write-Host "Storage Context OK"
@@ -205,14 +205,14 @@ jobs:
                   if ($type) {
                       $version, "latest" | ForEach-Object {
                           $blob = $storageBlobName.replace('{project}',$projectName).replace('{version}',$_).replace('{type}',$type).ToLowerInvariant()
-                          Write-Host "Publishing $blob"
+                          Write-Host "Publishing $blob to $storageContainerName"
                           Set-AzureStorageBlobContent -Context $storageContext -Container $storageContainerName -File '${{ matrix.name }}.zip' -blob $blob -Force
                       }
                   }
               }
               catch {
                 Write-Host $_.Exception.Message
-                  Write-Host "::Error::StorageContext secret is malformed. Needs to be formatted as Json, containing StorageAccountName, ContainerName and sastoken or storageAccountKey, which points to an existing container in a storage account."
+                  Write-Host "::Error::StorageContext secret is malformed. Needs to be formatted as Json, containing StorageAccountName, ContainerName, BlobName and sastoken or storageAccountKey, which points to an existing container in a storage account."
                   exit 1
               }
           }
