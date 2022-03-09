@@ -184,7 +184,7 @@ jobs:
                       $storageContext = New-AzureStorageContext -StorageAccountName $storageAccount.StorageAccountName -StorageAccountKey $storageAccount.StorageAccountKey
                   }
                   $storageContainerName =  $storageAccount.ContainerName.ToLowerInvariant().replace('{project}',$projectName).ToLowerInvariant()
-                  Get-AzureStorageContainer -Context $storageContext -name $storageAccount.ContainerName | Out-Null
+                  Get-AzureStorageContainer -Context $storageContext -name $storageContainerName | Out-Null
                   $storageBlobName = $storageAccount.BlobName.ToLowerInvariant()
                   Write-Host "Storage Context OK"
 
