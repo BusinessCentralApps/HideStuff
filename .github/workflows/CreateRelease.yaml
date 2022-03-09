@@ -183,10 +183,6 @@ jobs:
                   else {
                       $storageContext = New-AzureStorageContext -StorageAccountName $storageAccount.StorageAccountName -StorageAccountKey $storageAccount.StorageAccountKey
                   }
-                  $storageContainerName = $storageAccount.ContainerName.ToLowerInvariant().replace('{project}',$projectName).ToLowerInvariant()
-                  Get-AzureStorageContainer -Context $storageContext -name $storageContainerName | Out-Null
-                  $storageBlobName = $storageAccount.BlobName.ToLowerInvariant()
-                  Write-Host "Storage Context OK"
 
                   $name = '${{ matrix.name }}'
                   $type = ""
@@ -202,6 +198,12 @@ jobs:
                       $projectName = $name.SubString(0,$idx)
                       $type = 'TestApps'
                   }
+
+                  $storageContainerName = $storageAccount.ContainerName.ToLowerInvariant().replace('{project}',$projectName).ToLowerInvariant()
+                  Get-AzureStorageContainer -Context $storageContext -name $storageContainerName | Out-Null
+                  $storageBlobName = $storageAccount.BlobName.ToLowerInvariant()
+                  Write-Host "Storage Context OK"
+
                   if ($type) {
                       $version, "latest" | ForEach-Object {
                           $blob = $storageBlobName.replace('{project}',$projectName).replace('{version}',$_).replace('{type}',$type).ToLowerInvariant()
