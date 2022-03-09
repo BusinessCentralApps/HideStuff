@@ -204,7 +204,7 @@ jobs:
                   }
                   if ($type) {
                       $version, "latest" | ForEach-Object {
-                          $blob = $storageBlobName.replace('{project',$projectName).replace('{version}',$_).replace('{type}',$type).ToLowerInvariant()
+                          $blob = $storageBlobName.replace('{project}',$projectName).replace('{version}',$_).replace('{type}',$type).ToLowerInvariant()
                           Write-Host "Publishing $blob"
                           Set-AzureStorageBlobContent -Context $storageContext -Container $storageContainerName -File '${{ matrix.name }}.zip' -blob $blob -Force
                       }
