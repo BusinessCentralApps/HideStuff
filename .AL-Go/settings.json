@@ -1,8 +1,10 @@
 {
     "type":  "PTE",
-    "country": "us",
+    "country": "w1",
     "enablePerTenantExtensionCop":  false,
-    "repoVersion": "3.0",
+    "repoVersion": "17.0",
+    "artifact":  "/onprem/17.0/w1/latest",
+    "applicationDependency":  "17.0.0.0",
     "appFolders":  [
                        "HideStuff"
                    ],
